@@ -8,7 +8,8 @@ const path = require('path')
 const upload = multer({ dest: './' });
 
 router.get('/download', (req, res) => {
-  const filePath = path.join(__dirname,'public','rec.ogg');
+  res.status(200)
+  const filePath = path.join(__dirname,'client','rec.ogg');
   const fileName = 'recording.ogg';
   res.download(filePath, fileName, (err) => {
     if (err) {
@@ -21,13 +22,13 @@ router.get('/download', (req, res) => {
 
 router.get('/', (req, res) => {
     res.status(200)
-    res.sendFile(path.join(__dirname,'../api/public/index.html'));
+    res.sendFile(path.join(__dirname,'../client/index.html'));
   });
   
   router.post('/upload', upload.single('recording'), (req, res) => {
     const recording = req.file;
     console.log(recording);
-    fs.rename(recording.path, 'api/public/rec.ogg', (err) => {
+    fs.rename(recording.path, path.join(__dirname,'client','rec.ogg'), (err) => {
       if (err) {
         console.error(err);
         res.status(500).send('Error saving file');

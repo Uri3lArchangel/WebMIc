@@ -3,7 +3,7 @@ const app = express()
 const routes = require('./api/server')
 const path=require("path")
 
-app.use(express.static(path.join(__dirname,'api', 'public')));
+app.use(express.static(path.join(__dirname,'client', 'js')));
 app.use(routes)
 
 
