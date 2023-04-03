@@ -7,6 +7,12 @@ const path = require('path')
 
 const upload = multer({ dest: './' });
 
+
+router.get('/', (req, res) => {
+  res.status(200)
+  res.sendFile(path.join(__dirname,'../client/index.html'));
+});
+
 router.get('/download', (req, res) => {
   res.status(200)
   const filePath = path.join(__dirname,'client','rec.ogg');
@@ -20,10 +26,6 @@ router.get('/download', (req, res) => {
 });
 
 
-router.get('/', (req, res) => {
-    res.status(200)
-    res.sendFile(path.join(__dirname,'../client/index.html'));
-  });
   
   router.post('/upload', upload.single('recording'), (req, res) => {
     const recording = req.file;
