@@ -20,7 +20,7 @@ app.get('/download', (req, res) => {
 
 app.get('/', (req, res) => {
     console.log('g');
-    res.sendFile('index.html', { root: __dirname + 'public' });
+    res.sendFile('index.html', { root: '/public/public' });
   });
   
   app.post('/upload', upload.single('recording'), (req, res) => {
