@@ -1,12 +1,12 @@
 const express = require('express');
 const fs = require('fs');
 const multer = require('multer');
-const app = express()
+const router = express.Router()
 
 
 const upload = multer({ dest: './' });
 
-app.get('/download', (req, res) => {
+router.get('/download', (req, res) => {
   const filePath = __dirname + '/public/rec.ogg';
   const fileName = 'recording.ogg';
   res.download(filePath, fileName, (err) => {
@@ -18,12 +18,12 @@ app.get('/download', (req, res) => {
 });
 
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
     console.log('g');
     res.sendFile('index.html', { root:__dirname + '/public' });
   });
   
-  app.post('/upload', upload.single('recording'), (req, res) => {
+  router.post('/upload', upload.single('recording'), (req, res) => {
     const recording = req.file;
     console.log(recording);
     fs.rename(recording.path, 'api/public/rec.ogg', (err) => {
@@ -36,4 +36,4 @@ app.get('/', (req, res) => {
     });
   });
   
-  module.exports = app
+  module.exports = router
